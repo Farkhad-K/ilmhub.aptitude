@@ -1,9 +1,8 @@
 // src/pages/Result.tsx
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fromBase64, toBase64 } from '../utils/string';
 import { PolarArea } from 'react-chartjs-2';
-import Chart from 'chart.js/auto';
+import _Chart from 'chart.js/auto';
 import { useTranslation } from 'react-i18next';
 
 declare global {
@@ -19,29 +18,36 @@ export default function Result() {
 
   useEffect(() => {
     if (key) {
-      const userKey = fromBase64(decodeURIComponent(key));
-      const resultsRaw = localStorage.getItem('aptitude.results');
-      const all = resultsRaw ? JSON.parse(resultsRaw) as Record<string, Record<string, number>> : {};
-      const cs = all[userKey];
-      if (!cs) {
-        // redirect to home if no results
+      try {
+        // key is URL-safe base64 encoded payload produced by Test.tsx
+        const decoded = decodeURIComponent(atob(key)); // reverse of btoa/encodeURIComponent
+        const payload = JSON.parse(decoded) as {
+          name?: string;
+          phone?: string;
+          grade?: number;
+          categoryScores?: Record<string, number>;
+        };
+
+        if (!payload || !payload.categoryScores) {
+          window.location.href = '/';
+          return;
+        }
+
+        setCategoryScores(payload.categoryScores);
+        setUserName((payload.name || '').replace(/\b(\w)/g, m => m.toUpperCase()));
+        setChartReady(true);
+      } catch (err) {
+        console.error('Failed to decode result payload', err);
         window.location.href = '/';
-        return;
       }
-      setCategoryScores(cs);
-
-      const name = userKey.split(':')[0] || '';
-      // capital case using helper? quick inline:
-      setUserName(name.replace(/\b(\w)/g, m => m.toUpperCase()));
-
-      setChartReady(true);
     }
   }, [key]);
+
 
   useEffect(() => {
     // play confetti once
     if (chartReady) {
-      try { window.playConfetti?.(); } catch {}
+      try { window.playConfetti?.(); } catch { }
     }
   }, [chartReady]);
 
@@ -53,7 +59,7 @@ export default function Result() {
     datasets: [{
       data: Object.values(categoryScores),
       // background colors: random selection (Chart.js accepts colors)
-      backgroundColor: Object.values(categoryScores).map(() => `hsla(${Math.floor(Math.random()*360)},70%,55%,0.8)`)
+      backgroundColor: Object.values(categoryScores).map(() => `hsla(${Math.floor(Math.random() * 360)},70%,55%,0.8)`)
     }]
   };
 
@@ -62,7 +68,7 @@ export default function Result() {
       <div className="col-sm-10 col-md-8 col-lg-6 mx-auto my-auto text-center">
         <div className="my-5">
           {/* art-min.png */}
-          <img src={`/images/aptitude-min.png`} className="d-block mx-auto img-fluid" alt={t('aptitude')} width="300" loading="lazy" />
+          <img src={`/images/art-min.png`} className="d-block mx-auto img-fluid" alt={t('aptitude')} width="300" loading="lazy" />
           <h5 className="h5 my-3 opacity-50 text-muted">{t('aptitude')}</h5>
         </div>
         <p className="f-sister display-3 fw-bold text-secondary my-5">{userName}</p>

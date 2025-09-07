@@ -4,12 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import BinaryQuestionComponent from '../components/BinaryQuestion';
 import type { BinaryQuestion } from '../components/BinaryQuestion';
 import { shuffle } from '../utils/collection';
-import { slugify, toBase64 } from '../utils/string';
+import { slugify } from '../utils/string';
 import { useTranslation } from 'react-i18next';
-import { saveAttemptToFirestore } from '../services/firestoreService';
 import { telegram } from '../services/telegram';
-
-const CATEGORY_SCORES_KEY = 'aptitude.results';
+import { sendAttemptToTelegram } from '../services/telegramBotService';
 
 export default function Test() {
   const { t, i18n } = useTranslation();
@@ -73,37 +71,38 @@ export default function Test() {
   };
 
   const handleSelected = async (result: { yes: boolean; category: string }) => {
+    // update category scores
     setCategoryScores(prev => {
       const copy = { ...prev };
       copy[result.category] = (copy[result.category] || 0) + (result.yes ? 1 : 0);
       return copy;
     });
 
-    if (index < questions.length) setIndex(i => i + 1);
+    // compute next index and update
+    const nextIndex = index + 1;
+    setIndex(nextIndex);
 
-    if (index + 1 === questions.length) {
-      // finalize
-      const storageKey = sessionStorage.getItem('user')!;
-      // merge into localStorage results
-      const existingRaw = localStorage.getItem(CATEGORY_SCORES_KEY);
-      const existing = existingRaw ? JSON.parse(existingRaw) as Record<string, Record<string, number>> : {};
-      existing[storageKey] = { ...(existing[storageKey] || {}), ...categoryScores };
-      localStorage.setItem(CATEGORY_SCORES_KEY, JSON.stringify(existing));
+    // if we have reached the end, finalize
+    if (nextIndex === questions.length) {
+      // create final scores snapshot (ensure we capture the latest state)
+      const finalScores = { ...categoryScores };
 
-      // attempt Firestore save (fire-and-forget)
-      try {
-        await saveAttemptToFirestore({
-          storageKey,
-          name,
-          phone,
-          grade: parseInt(grade || '0', 10),
-          categoryScores
-        });
-      } catch (err) {
-        console.warn('Firestore save failed, kept in localStorage', err);
-      }
+      // build attempt data
+      const attemptData = {
+        name,
+        phone,
+        grade: parseInt(grade || '0', 10),
+        categoryScores: finalScores
+      };
 
-      navigate(`/result/${toBase64(storageKey)}`);
+      // forward to Telegram (fire-and-forget)
+      sendAttemptToTelegram(attemptData).catch(e => {
+        console.warn('telegram forward failed', e);
+      });
+
+      // navigate to result page — encode the full attempt payload in the URL
+      const payload = encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(attemptData)))));
+      navigate(`/result/${payload}`);
     }
   };
 
