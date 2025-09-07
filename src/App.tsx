@@ -1,5 +1,5 @@
 // src/App.tsx
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Test from "./pages/Test";
@@ -9,7 +9,6 @@ import "./styles/app.css";
 
 export default function App() {
   useEffect(() => {
-    // initialize Telegram SDK like Blazor's TelegramService.InitializeAsync()
     telegram.ready().catch(() => {});
   }, []);
 

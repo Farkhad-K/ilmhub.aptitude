@@ -7,7 +7,6 @@ export async function sendAttemptToTelegram(data: {
   categoryScores?: Record<string, number>;
 }) {
   try {
-    // base url (fall back to empty string)
     const base = (import.meta.env.VITE_API_BASE_URL as string) || '';
     const url = `${base}/api/sendToTelegram`;
 
@@ -15,8 +14,6 @@ export async function sendAttemptToTelegram(data: {
       'Content-Type': 'application/json'
     };
 
-    // if you set API_SECRET in .env.local, also set VITE_API_SECRET for frontend (optional)
-    // -> recommended: do NOT put the secret in VITE_ in production.
     const apiSecret = (import.meta.env.VITE_API_SECRET as string) || '';
     if (apiSecret) headers['x-api-key'] = apiSecret;
 
