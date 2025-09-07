@@ -1,0 +1,42 @@
+.f-sister {
+    font-family: "Love Ya Like A Sister", cursive !important;
+}
+
+.feature-icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: .75rem;
+}
+
+body {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+*::-webkit-scrollbar {
+    display: none;
+}
+
+
+.hover-effect {
+    transition: all 0.3s ease;
+}
+
+.hover-effect:hover,
+.hover-effect:focus {
+    background-color: var(--bs-light, #f8f9fa) !important;
+    color: var(--bs-dark, #212529) !important;
+    cursor: pointer;
+    box-shadow: var(--bs-shadow-lg) !important;
+}
+
+/* For touch devices */
+@media (hover: none) {
+    .hover-effect:active {
+        background-color: var(--bs-light, #f8f9fa) !important;
+        color: var(--bs-dark, #212529) !important;
+        box-shadow: var(--bs-shadow-lg) !important;
+    }
+}
