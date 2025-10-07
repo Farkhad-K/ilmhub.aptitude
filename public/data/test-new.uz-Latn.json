@@ -1,90 +1,86 @@
 [
   {
-    "Statement": "Katta qiziqish va uzoq vaqt biror narsani o'z qo'lim bilan yasashga qiziqaman.",
+    "Statement": "Narsalarni buzib, ichini ko‘rish yoki ularni tuzatishni yoqtiraman.",
     "Category": "technology"
   },
   {
-    "Statement": "Muzey teatr ko'rgazmalarga borishni yoqtiraman.",
+    "Statement": "O‘zim robot, dastur yoki kichik loyiha yasab ko‘rishni xohlayman.",
+    "Category": "technology"
+  },
+  {
+    "Statement": "Hisob-kitob qilish yoki jumboqlarni yechishni yoqtiraman.",
+    "Category": "technology"
+  },
+  {
+    "Statement": "Qanday ishlashini bilish uchun texnika yoki mexanizmlarni ko‘rishni yaxshi ko‘raman.",
+    "Category": "technology"
+  },
+  {
+    "Statement": "Kompyuter yoki telefon orqali yangi dasturlarni o‘rganish menga qiziq.",
+    "Category": "technology"
+  },
+  {
+    "Statement": "Nimalarnidir loyihalash, chizma chizish yoki yangi g‘oya o‘ylab topishni yoqtiraman.",
+    "Category": "technology"
+  },
+  {
+    "Statement": "O‘ylab topgan narsam boshqalarni hayratda qoldirsa, juda xursand bo‘laman.",
+    "Category": "technology"
+  },
+  {
+    "Statement": "Rasm chizish, qo‘shiq aytish yoki sahnada chiqish menga yoqadi.",
     "Category": "art"
   },
   {
-    "Statement": "Doimo hayvonlar va o'simliklarni parvarish qilishga qiziqaman.",
-    "Category": "nature"
-  },
-  {
-    "Statement": "Uzoq vaqt biror narsani hisoblashga oid ishlarni bajarishga yoki chizmalar chizishga qiziqaman.",
-    "Category": "technology"
-  },
-  {
-    "Statement": "O'simliklar va hayvonlarni parvarish qilishdan rohatlanaman.",
-    "Category": "nature"
-  },
-  {
-    "Statement": "Yozma ishlarni xatosiz yozaman.",
-    "Category": "technology"
-  },
-  {
-    "Statement": "Meni yasagan narsalarim do'stlarim va kattalarda qiziqish uyg'otadi.",
-    "Category": "technology"
-  },
-  {
-    "Statement": "Tanishlarim mendan badiiy qobiliyat rivojlangan deb hisoblashadi.",
+    "Statement": "Teatr, muzey yoki ko‘rgazmaga borish men uchun zavqli.",
     "Category": "art"
   },
   {
-    "Statement": "O'simliklar va hayvonot olami haqida turli adabiyotlarni bajaroni bilan o'qiyman.",
-    "Category": "nature"
-  },
-  {
-    "Statement": "Sahna asarlari va koncertlarda ishtirok etishni yoqtiraman.",
+    "Statement": "O‘zim yozgan hikoya yoki she’rni boshqalarga o‘qib berishni yoqtiraman.",
     "Category": "art"
   },
   {
-    "Statement": "Turli asbob va mexanizmalar haqida o'qishni yoqtiraman.",
-    "Category": "technology"
-  },
-  {
-    "Statement": "Uzoq vaqt turli mantiqiy boshqotirmalar masalalar va rebuslar echishni yoqtiraman.",
-    "Category": "technology"
-  },
-  {
-    "Statement": "Texnika sohasida ishlashga qobiliyatim yetarli deb hisoblayman.",
-    "Category": "technology"
-  },
-  {
-    "Statement": "Badiiy ijod sohasidagi faoliyatim tanishlarimga manzur bo'lmoqdа.",
+    "Statement": "Bo‘sh vaqtimda kitob o‘qish yoki musiqa tinglash bilan shug‘ullanaman.",
     "Category": "art"
   },
   {
-    "Statement": "Men o'simliklar va hayvonot olamiga oid faoliyat bilan shug'ullanishga qobiliyatim yetarli deb hisoblayman.",
-    "Category": "nature"
-  },
-  {
-    "Statement": "Men o'z fikrlarimni yozma ravishda aniq bayon qila olaman.",
-    "Category": "technology"
-  },
-  {
-    "Statement": "Mening texnik ijod sohasidagi yutuqlarimni barcha tanishlarim qo'llab-quvvatlayaptilar.",
-    "Category": "technology"
-  },
-  {
-    "Statement": "Uzoq vaqt musiqa rasm chizish va kitob o'qish bilan shug'ullana olaman.",
+    "Statement": "Narsalarni chiroyli qilish, bezash yoki dizaynini o‘ylab topishni yoqtiraman.",
     "Category": "art"
   },
   {
-    "Statement": "O'simliklar va hayvonlarning rivojlanishi bilan bog'liq tadqiqotlar o'tkazishga qiziqaman.",
-    "Category": "nature"
-  },
-  {
-    "Statement": "Mexanizm va asboblarning tuzilishi haqida ko'proq ma'lumotga ega bo'lishga qiziqaman.",
-    "Category": "technology"
-  },
-  {
-    "Statement": "O'simliklarning va hayvonlarning rivojlanishini kuzatishga qiziqaman.",
-    "Category": "nature"
-  },
-  {
-    "Statement": "Mahorat sirlarini rassomlik musiqa sohasini egallashga intilishim kuchli.",
+    "Statement": "Do‘stlarim meni ijodkor deb hisoblashadi.",
     "Category": "art"
+  },
+  {
+    "Statement": "Yangi uslub yoki san’at sirlarini o‘rganishga harakat qilaman.",
+    "Category": "art"
+  },
+  {
+    "Statement": "Hayvonlarga g‘amxo‘rlik qilishni yoki ularni boqishni yoqtiraman.",
+    "Category": "nature"
+  },
+  {
+    "Statement": "O‘simlik ekish va ularni parvarish qilish menga yoqadi.",
+    "Category": "nature"
+  },
+  {
+    "Statement": "Tabiatda nimalar qanday o‘sishini va o‘zgarishini kuzatishni yoqtiraman.",
+    "Category": "nature"
+  },
+  {
+    "Statement": "Hayvonlar yoki tabiat haqida hujjatli filmlar tomosha qilish menga qiziq.",
+    "Category": "nature"
+  },
+  {
+    "Statement": "Tabiat haqida yangi narsalarni o‘rganishni xohlayman.",
+    "Category": "nature"
+  },
+  {
+    "Statement": "Tajribalar o‘tkazish yoki kuzatuvlar qilish menga zavq beradi.",
+    "Category": "nature"
+  },
+  {
+    "Statement": "Hayvonlar va o‘simliklar bilan bog‘liq kasblar (vrach, biolog) haqida o‘ylab ko‘rganman.",
+    "Category": "nature"
   }
 ]
