@@ -2,7 +2,7 @@
   "yes": "Ha 👍",
   "no": "Yo'q 👎",
   "home-banner-title": "<h1 class=\"display-1 fw-semi-bold text-body-emphasis lh-1 mb-3 f-sister\">Farzandingiz uchun <span class=\"text-primary\">qobilyat</span> <span class=\"text-success\">testi</span></h1>",
-  "home-banner-subtitle": "<p class=\"lead fs-4\"><strong class=\"text-secondary\">Ilmhub Qobiliyat Testi</strong> &#8212; 7-13 yoshdagi bolalaringizning <span class=\"text-secondary\">tabiiy fanlar</span>, <span class=\"text-secondary\">san'at</span> yoki <strong class=\"text-secondary\">dasturlash</strong> sohalarida qobiliyatlarini aniqlash uchun mo'ljallangan test. Ushbu test sizga bolalaringizning potensialini baholashda yordam beradi va ularning qobiliyatiga mos kasblarga yo'naltirish uchun qo'llanma sifatida xizmat qiladi.</p>",
+  "home-banner-subtitle": "<p class=\"lead fs-4\"><strong class=\"text-secondary\">Ilmhub Qobiliyat Testi</strong> — 7-13 yoshdagi bolalaringizning tabiiy fanlar, san'at yoki dasturlash sohalarida qobiliyatlarini aniqlash uchun mo'ljallangan test.</p>",
   "start-button": "Hoziroq aniqlaymiz",
   "hidden-abilities-title": "Yashirin Qobiliyatlar",
   "contact-title": "Bog'laning",
@@ -14,16 +14,13 @@
   "phone-number": "93 886 9898",
   "ok-understood": "Ok, tushunarli",
 
-  "art-explanation": "Sizda <strong class=\"text-success\">san'at</strong>ga bo'lgan ijodiy qiziqish mavjud. Dizayn, musiqa yoki tasviriy san'at kabi sohalar siz uchun juda mos bo'lishi mumkin.",
-  "nature-explanation": "Siz <strong class=\"text-success\">tabiiy fanlar</strong>ga katta qiziqishga egasiz. Biologiya, qishloq xo'jaligi va atrof-muhit fanlari kabi sohalar siz uchun juda mos bo'lishi mumkin.",
-  "technology-explanation": "Siz <strong class=\"text-success\">texnologiya va IT</strong>ga moyilsiz. Injinerlik, IT yoki robototexnika sohalarida faoliyat yuritishni ko'rib chiqishningiz mumkin.",
-  "art-alt": "san'at ko'rsatilgan rasm",
-  "technology-alt": "kompyuterda o'tirgan bola",
-  "nature-alt": "atom tasvirlangan rasm",
+  "art-explanation": "Sizda <strong class=\"text-success\">san'at</strong>ga bo'lgan ijodiy qiziqish mavjud.",
+  "nature-explanation": "Siz <strong class=\"text-success\">tabiiy fanlar</strong>ga katta qiziqishga egasiz.",
+  "technology-explanation": "Siz <strong class=\"text-success\">texnologiya va IT</strong>ga moyilsiz.",
   "technology": "IT va Texnologiya",
   "nature": "Tabiiy fanlar",
   "art": "San'at va ijodkorlik",
-  "chart-title": "Baxolar nisbati",
+  "chart-title": "Baholar nisbati",
 
   "modal.title": "Test topshiruvchi?",
   "modal.name-placeholder": "O'quvchi ismi",
@@ -32,5 +29,15 @@
   "modal.phone-warning": "Iltimos, telefon raqamini kiriting.",
   "modal.submit-button": "Boshladik",
   "modal.grade-placeholder": "Nechinchi sinfsiz?",
-  "modal.grade-warning": "Iltimos, sinfni tanlang."
+  "modal.grade-warning": "Iltimos, sinfni tanlang.",
+  "modal.select-filial": "Filial tanlang",
+  "modal.select-filial-warning": "Iltimos, filialni tanlang.",
+
+  "filials": {
+    "namangan-uychi": "Namangan (Uychi)",
+    "namangan-shahar": "Namangan (Shahar)",
+    "chimgan": "Chimgan",
+    "feruza": "Feruza",
+    "yunusobod": "Yunusobod"
+  }
 }

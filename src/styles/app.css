@@ -1,42 +1,69 @@
-.f-sister {
-    font-family: "Love Ya Like A Sister", cursive !important;
+/* === Filial dropdown style to match other form-floating inputs === */
+.form-select {
+  background-color: var(--bs-body-bg, #fff) !important;
+  color: var(--bs-body-color, #212529) !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 0.375rem;
+  padding: 1rem 0.75rem;
+  transition: all 0.2s ease-in-out;
+  font-weight: 400;
 }
 
-.feature-icon {
-    width: 4rem;
-    height: 4rem;
-    border-radius: .75rem;
+/* Placeholder (when value="") */
+.form-select option[value=""] {
+  color: #6c757d !important;
 }
 
-body {
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-*::-webkit-scrollbar {
-    display: none;
+/* Hover state */
+.form-select:hover {
+  border-color: #646cff !important;
 }
 
-
-.hover-effect {
-    transition: all 0.3s ease;
+/* Focused (blue border + subtle glow) */
+.form-select:focus {
+  border-color: #646cff !important;
+  box-shadow: 0 0 0 0.25rem rgba(100, 108, 255, 0.25) !important;
+  background-color: var(--bs-body-bg, #fff) !important;
+  color: var(--bs-body-color, #36393c) !important;
+  outline: none !important;
 }
 
-.hover-effect:hover,
-.hover-effect:focus {
-    background-color: var(--bs-light, #f8f9fa) !important;
-    color: var(--bs-dark, #212529) !important;
-    cursor: pointer;
-    box-shadow: var(--bs-shadow-lg) !important;
+/* Options list (for consistency on dark/light themes) */
+.form-select option {
+  background-color: var(--bs-body-bg, #fff) !important;
+  color: var(--bs-body-color, #8e9296) !important;
 }
 
-/* For touch devices */
-@media (hover: none) {
-    .hover-effect:active {
-        background-color: var(--bs-light, #f8f9fa) !important;
-        color: var(--bs-dark, #212529) !important;
-        box-shadow: var(--bs-shadow-lg) !important;
-    }
+/* Hover inside dropdown list */
+.form-select option:hover,
+.form-select option:focus {
+  background-color: #e9ecef !important;
+  color: #1a1a1a !important;
+}
+
+/* Dark mode (matches your :root color-scheme) */
+@media (prefers-color-scheme: dark) {
+  .form-select {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+    border: 1px solid #646161 !important;
+  }
+
+  .form-select:focus {
+    border-color: #646cff !important;
+    box-shadow: 0 0 0 0.25rem rgba(100, 108, 255, 0.35) !important;
+    background-color: #242424 !important;
+    color: #ffffff !important;
+  }
+
+  .form-select option {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+  }
+
+  .form-select option:hover,
+  .form-select option:focus {
+    background-color: #2b2b2b !important;
+    color: #87a2ff !important;
+  }
 }

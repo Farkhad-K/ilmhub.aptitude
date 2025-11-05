@@ -1,5 +1,4 @@
-// src/pages/Test.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BinaryQuestionComponent from '../components/BinaryQuestion';
 import type { BinaryQuestion } from '../components/BinaryQuestion';
@@ -12,6 +11,7 @@ import { sendAttemptToTelegram } from '../services/telegramBotService';
 export default function Test() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+
   const [questions, setQuestions] = useState<BinaryQuestion[]>([]);
   const [index, setIndex] = useState(0);
   const [started, setStarted] = useState(false);
@@ -20,6 +20,17 @@ export default function Test() {
   const [phone, setPhone] = useState('');
   const [grade, setGrade] = useState('');
   const [isTelegram, setIsTelegram] = useState(false);
+  const [filial, setFilial] = useState<string>('');
+  const [filialLabel, setFilialLabel] = useState<string>('');
+
+  // 🔤 Localized filial list
+  const filialOptions = useMemo(() => [
+    { value: 'namangan-uychi', label: t('filials.namangan-uychi'), short: 'Namangan — Uychi' },
+    { value: 'namangan-shahar', label: t('filials.namangan-shahar'), short: 'Namangan — Shahar' },
+    { value: 'chimgan', label: t('filials.chimgan'), short: 'Chimgan' },
+    { value: 'feruza', label: t('filials.feruza'), short: 'Feruza' },
+    { value: 'yunusobod', label: t('filials.yunusobod'), short: 'Yunusobod' }
+  ], [t]);
 
   useEffect(() => {
     (async () => {
@@ -33,22 +44,28 @@ export default function Test() {
 
     const culture = localStorage.getItem('blazor.culture') ?? i18n.language ?? 'uz-Latn';
     const file = `/data/test-new.${culture}.json`;
-    fetch(file).then(r => r.json()).then((data: BinaryQuestion[]) => {
-      const shuffled = (shuffle(data) || []);
-      setQuestions(shuffled);
 
-      // build initial category scores:
-      const cats: Record<string, number> = {};
-      shuffled.forEach(q => {
-        if (q.Category) cats[q.Category] = 0;
-      });
-      setCategoryScores(cats);
-    }).catch(err => {
-      console.error('Loading test failed', err);
-    });
-  }, []);
+    fetch(file)
+      .then(r => r.json())
+      .then((rawData: any[]) => {
+        const data = (rawData || []).map(item => ({
+          Statement: item.Statement ?? item.statement ?? '',
+          Category: item.Category ?? item.category ?? ''
+        })) as BinaryQuestion[];
 
-  const currentQuestion = questions.length > 0 && index < questions.length ? questions[index] : undefined;
+        const shuffled = shuffle(data) || [];
+        setQuestions(shuffled);
+
+        const cats: Record<string, number> = {};
+        shuffled.forEach(q => {
+          if (q.Category) cats[q.Category] = 0;
+        });
+        setCategoryScores(cats);
+      })
+      .catch(err => console.error('Loading test failed', err));
+  }, [i18n.language]);
+
+  const currentQuestion = questions[index];
   const progress = questions.length ? Math.round((index / questions.length) * 100) : 0;
 
   const validatePhone = (p: string) => /^\d{2}\d{7}$/.test(p);
@@ -60,10 +77,9 @@ export default function Test() {
 
   const start = async (e?: React.FormEvent) => {
     e?.preventDefault();
-    if (isTelegram || (isNameValid && validatePhone(phone) && isGradeValid)) {
-      // create storage key like User.StorageKey
+    if ((isTelegram || (isNameValid && validatePhone(phone) && isGradeValid)) && filial) {
       const timestamp = Math.floor(Date.now() / 1000);
-      const storageKey = `${slugify(name)}:${phone}:${grade}:${timestamp}`;
+      const storageKey = `${slugify(name)}:${phone}:${grade}:${filial}:${timestamp}`;
       sessionStorage.setItem('user', storageKey);
       setStarted(true);
       await telegram.expand();
@@ -71,39 +87,38 @@ export default function Test() {
   };
 
   const handleSelected = async (result: { yes: boolean; category: string }) => {
-    // update category scores
     setCategoryScores(prev => {
       const copy = { ...prev };
       copy[result.category] = (copy[result.category] || 0) + (result.yes ? 1 : 0);
       return copy;
     });
 
-    // compute next index and update
     const nextIndex = index + 1;
     setIndex(nextIndex);
 
-    // if we have reached the end, finalize
     if (nextIndex === questions.length) {
-      // create final scores snapshot (ensure we capture the latest state)
       const finalScores = { ...categoryScores };
 
-      // build attempt data
       const attemptData = {
+        storageKey: sessionStorage.getItem('user') ?? undefined,
         name,
         phone,
         grade: parseInt(grade || '0', 10),
+        filial: filialLabel || undefined,
         categoryScores: finalScores
       };
 
-      // forward to Telegram (fire-and-forget)
-      sendAttemptToTelegram(attemptData).catch(e => {
-        console.warn('telegram forward failed', e);
-      });
+      sendAttemptToTelegram(attemptData).catch(e => console.warn('telegram forward failed', e));
 
-      // navigate to result page — encode the full attempt payload in the URL
       const payload = encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(attemptData)))));
       navigate(`/result/${payload}`);
     }
+  };
+
+  const onFilialChange = (val: string) => {
+    setFilial(val);
+    const opt = filialOptions.find(f => f.value === val);
+    setFilialLabel(opt ? opt.short : '');
   };
 
   return (
@@ -153,7 +168,26 @@ export default function Test() {
                     {!isGradeValid && <div className="invalid-feedback d-block"><small className="opacity-50 text-warning-emphasis">{t('modal.grade-warning')}</small></div>}
                   </div>
 
-                  <button type="submit" className="w-100 mb-2 btn btn-lg rounded-3 btn-primary" disabled={!validatePhone(phone) || (!isTelegram && !isNameValid)}>
+                  {/* Filial dropdown */}
+                  <div className="form-floating mb-3">
+                    <select
+                      id="filial-select"
+                      className="form-select text-secondary fw-normal"
+                      value={filial}
+                      onChange={e => onFilialChange(e.target.value)}
+                      required
+                    >
+                      <option value="" hidden />
+                      {filialOptions.map(f => (
+                        <option key={f.value} value={f.value}>{f.label}</option>
+                      ))}
+                    </select>
+                    <label htmlFor="filial-select" className="opacity-50 fs-6">{t('modal.select-filial')}</label>
+                    {!filial && <div className="invalid-feedback d-block"><small className="opacity-50 text-warning-emphasis">{t('modal.select-filial-warning') ?? 'Please choose filial'}</small></div>}
+                  </div>
+
+                  <button type="submit" className="w-100 mb-2 btn btn-lg rounded-3 btn-primary"
+                    disabled={!validatePhone(phone) || (!isTelegram && !isNameValid) || !filial}>
                     {t('modal.submit-button')}
                   </button>
                 </form>

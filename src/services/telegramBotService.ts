@@ -4,6 +4,7 @@ export async function sendAttemptToTelegram(data: {
   name?: string;
   phone?: string;
   grade?: number;
+  filial?: string; // friendly label
   categoryScores?: Record<string, number>;
 }) {
   try {
@@ -23,9 +24,16 @@ export async function sendAttemptToTelegram(data: {
       body: JSON.stringify(data)
     });
 
-    const json = await res.json();
-    console.log('Telegram API result:', json);
-    return json;
+    const text = await res.text(); // defensive: sometimes server returns empty or non-json
+    try {
+      const json = text ? JSON.parse(text) : {};
+      console.log('Telegram API result:', json);
+      return json;
+    } catch (err) {
+      // fallback: log raw text for easier debugging
+      console.warn('Failed to parse JSON from sendToTelegram response, raw text:', text);
+      return { ok: false, error: 'Invalid JSON from server', raw: text };
+    }
   } catch (err) {
     console.error('Failed to send to Telegram', err);
     throw err;
