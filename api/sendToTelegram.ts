@@ -111,12 +111,11 @@ export default async function handler(req: any, res: any) {
 
     // Build message parts (include filial, storageKey)
     const textParts = [
-      '📊 New Aptitude Test Attempt',
+      '📊 New Aptitude Test Result',
       name ? `👤 Name: ${name}` : null,
       phone ? `📱 Phone: +998${phone}` : null,
-      typeof grade === 'number' ? `🎓 Grade: ${grade}` : null,
-      storageKey ? `🔑 Key: ${storageKey}` : null,
-      filial ? `🏢 Branch: ${filial}\n` : null,
+      grade !== undefined ? `🎓 Grade: ${grade}` : null,
+      filial ? `🏢 Branch: <b><i>${filial}</i></b>\n` : null,
       '',
       `📝 Scores:\n${scoresText}`
     ].filter(Boolean);

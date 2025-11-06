@@ -145,11 +145,11 @@ app.post('/api/sendToTelegram', async (req, res) => {
 
     // Build message parts (include filial if present)
     const textParts = [
-      '📊 New Aptitude Test Attempt',
+      '📊 New Aptitude Test Result',
       name ? `👤 Name: ${name}` : null,
       phone ? `📱 Phone: +998${phone}` : null,
       grade !== undefined ? `🎓 Grade: ${grade}` : null,
-      filial ? `🏢 Branch: ${filial}\n` : null,
+      filial ? `🏢 Branch: <b><i>${filial}</i></b>\n` : null,
       '',
       `📝 Scores:\n${scoresText}`
     ].filter(Boolean);
