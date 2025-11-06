@@ -1,3 +1,4 @@
+// src/pages/Test.tsx
 import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BinaryQuestionComponent from '../components/BinaryQuestion';
@@ -168,7 +169,6 @@ export default function Test() {
                     {!isGradeValid && <div className="invalid-feedback d-block"><small className="opacity-50 text-warning-emphasis">{t('modal.grade-warning')}</small></div>}
                   </div>
 
-                  {/* Filial dropdown */}
                   <div className="form-floating mb-3">
                     <select
                       id="filial-select"

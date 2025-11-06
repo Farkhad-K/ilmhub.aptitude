@@ -23,7 +23,7 @@ function resolveDefaultLang(): string {
 
   if (nav.startsWith("ru")) return "ru";
   if (nav.startsWith("uz")) return "uz-Latn";
-  // default
+  
   return "uz-Latn";
 }
 
